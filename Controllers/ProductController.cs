@@ -5,7 +5,7 @@ using MongoDB.Driver;
 
 namespace ushopDN.Controllers
 {
-    [Route("api/v1/[controller]")]
+    [Route("api/v1/")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -23,7 +23,7 @@ namespace ushopDN.Controllers
             return Ok(new { success = true, name = product.Name });
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("product/{id}")]
         public async Task<IActionResult> GetProduct(string id)
         {
             var product = await _context.Products.Find(p => p.Id == id).FirstOrDefaultAsync();
@@ -34,7 +34,7 @@ namespace ushopDN.Controllers
             return Ok(product);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("product/{id}")]
         public async Task<IActionResult> DeleteProduct(string id)
         {
             var result = await _context.Products.DeleteOneAsync(p => p.Id == id);
@@ -45,14 +45,14 @@ namespace ushopDN.Controllers
             return Ok(new { success = true });
         }
 
-        [HttpGet]
+        [HttpGet("product")]
         public async Task<IActionResult> GetProducts()
         {
             var products = await _context.Products.Find(_ => true).ToListAsync();
             return Ok(products);
         }
 
-        [HttpGet("category/{category}")]
+        [HttpGet("product/category/{category}")]
         public async Task<IActionResult> GetProductsByCategory(string category, [FromQuery] int page = 1)
         {
             const int PageSize = 10;
@@ -65,5 +65,39 @@ namespace ushopDN.Controllers
             var total = await _context.Products.CountDocumentsAsync(p => p.Category == category);
             return Ok(new { products, total, page });
         }
+
+        [HttpGet("popular/{category}")]
+        public async Task<IActionResult> GetPopularProduct(string category)
+        {
+            var products = await _context.Products
+                .Find(p => p.Category == category)
+                .Limit(4)
+                .ToListAsync();
+            return Ok(products);
+
+        }
+
+        [HttpGet("newcollections")]
+        public async Task<IActionResult> GetNewCollections()
+        {
+            var products = await _context.Products
+                .Find(_ => true)
+                .SortByDescending(p => p.Date)
+                .Limit(8)
+                .ToListAsync();
+            return Ok(products);
+        }
+
+        [HttpGet("newcollections/{category}")]
+        public async Task<IActionResult> GetNewCollectionsByCategory(string category)
+        {
+            var products = await _context.Products
+                .Find(p => p.Category == category)
+                .SortByDescending(p => p.Date)
+                .Limit(4)
+                .ToListAsync();
+            return Ok(products);
+        }
+
     }
 }

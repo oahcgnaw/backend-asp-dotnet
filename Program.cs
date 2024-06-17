@@ -1,10 +1,19 @@
+using DnsClient.Protocol;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ushopDN.Data;
 using ushopDN.Services;
 
-var builder = WebApplication.CreateBuilder(args);
+var options = new WebApplicationOptions
+{
+    Args = args,
+    ContentRootPath = Directory.GetCurrentDirectory(),
+    WebRootPath = "upload"
+};
+
+var builder = WebApplication.CreateBuilder(options);
+
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -55,6 +64,7 @@ else
 app.UseStaticFiles();
 app.UseRouting();
 app.UseCors();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

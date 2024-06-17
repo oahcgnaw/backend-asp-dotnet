@@ -7,7 +7,6 @@ using ushopDN.Services;
 namespace ushopDN.Controllers
 {
     [Route("api/v1")]
-    [ApiController]
 
     public class UserController : ControllerBase
     {
