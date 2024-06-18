@@ -41,7 +41,6 @@ namespace ushopDN.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> GetCartItems()
         {
             var token = Request.Headers["Auth-Token"].ToString();
@@ -55,7 +54,6 @@ namespace ushopDN.Controllers
         }
 
         [HttpPatch]
-        [Authorize]
         public async Task<IActionResult> AddToCart([FromBody] Dictionary<string, string> body)
         {
             var token = Request.Headers["Auth-Token"].ToString();
@@ -80,7 +78,6 @@ namespace ushopDN.Controllers
         }
 
         [HttpDelete("{itemId}")]
-        [Authorize]
         public async Task<IActionResult> DeleteFromCart(string itemId)
         {
             var token = Request.Headers["Auth-Token"].ToString();

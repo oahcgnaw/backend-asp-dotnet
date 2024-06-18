@@ -48,6 +48,17 @@ builder.Services.AddAuthentication(options =>
 });
 builder.Services.AddSingleton<JwtService>();
 
+// Add Swagger services
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "Your API Name",
+        Version = "v1",
+        Description = "Your API Description"
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -61,6 +72,11 @@ else
     app.UseHsts();
 }
 
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API Name v1");
+});
 app.UseStaticFiles();
 app.UseRouting();
 app.UseCors();
