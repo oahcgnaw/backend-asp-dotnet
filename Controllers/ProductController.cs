@@ -16,8 +16,8 @@ namespace ushopDN.Controllers
             _context = context;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> PostProduct([FromBody] Product product)
+        [HttpPost("product")]
+        public async Task<IActionResult> AddProduct([FromBody] Product product)
         {
             await _context.Products.InsertOneAsync(product);
             return Ok(new { success = true, name = product.Name });
@@ -26,7 +26,7 @@ namespace ushopDN.Controllers
         [HttpGet("product/{id}")]
         public async Task<IActionResult> GetProduct(string id)
         {
-            var product = await _context.Products.Find(p => p.Id == id).FirstOrDefaultAsync();
+            var product = await _context.Products.Find(p => p._id == id).FirstOrDefaultAsync();
             if (product == null)
             {
                 return NotFound(new { success = false, message = "Product not found" });
@@ -37,7 +37,7 @@ namespace ushopDN.Controllers
         [HttpDelete("product/{id}")]
         public async Task<IActionResult> DeleteProduct(string id)
         {
-            var result = await _context.Products.DeleteOneAsync(p => p.Id == id);
+            var result = await _context.Products.DeleteOneAsync(p => p._id == id);
             if (result.DeletedCount == 0)
             {
                 return NotFound(new { success = false, message = "Product not found" });

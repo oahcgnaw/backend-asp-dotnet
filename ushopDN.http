@@ -1,4 +1,4 @@
-@ushopDN_HostAddress = http://localhost:5092
+@ushopDN_HostAddress = http://localhost:2997
 
 GET {{ushopDN_HostAddress}}/weatherforecast/
 Accept: application/json

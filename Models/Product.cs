@@ -8,7 +8,7 @@ namespace ushopDN.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
+        public string _id { get; set; } = ObjectId.GenerateNewId().ToString();
 
         [BsonElement("name")]
         public required string Name { get; set; }
@@ -20,10 +20,10 @@ namespace ushopDN.Models
         public required string Category { get; set; }
 
         [BsonElement("new_price")]
-        public double New_Price { get; set; }
+        public double New_price { get; set; }
 
         [BsonElement("old_price")]
-        public double Old_Price { get; set; }
+        public double Old_price { get; set; }
 
         [BsonElement("description")]
         public string? Description { get; set; }
