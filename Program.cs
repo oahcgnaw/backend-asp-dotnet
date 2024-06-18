@@ -1,5 +1,6 @@
 using DnsClient.Protocol;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Server.Kestrel;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ushopDN.Data;
@@ -68,6 +69,7 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
+    builder.WebHost.UseUrls("http://*:2997");
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }

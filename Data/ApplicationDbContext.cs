@@ -11,7 +11,10 @@ namespace ushopDN.Data
         public ApplicationDbContext(IConfiguration configuration)
         {
             var client = new MongoClient(configuration.GetConnectionString("MongoDbConnection"));
-            _database = client.GetDatabase("eshop_dev");
+            // connect to db based on environment
+            _database = configuration["ServeMode"] == "dev" 
+                ? client.GetDatabase("eshop_dev") 
+                : client.GetDatabase("eshop");
         }
 
         public IMongoCollection<Product> Products => _database.GetCollection<Product>("products");
