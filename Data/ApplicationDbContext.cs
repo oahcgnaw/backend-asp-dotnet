@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
 using ushopDN.Models;
 

@@ -1,6 +1,4 @@
-using DnsClient.Protocol;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Server.Kestrel;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ushopDN.Data;

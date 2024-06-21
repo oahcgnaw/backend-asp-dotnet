@@ -4,7 +4,6 @@ using ushopDN.Data;
 using ushopDN.Models;
 using MongoDB.Driver;
 using ushopDN.Services;
-using Microsoft.AspNetCore.Authorization;
 
 namespace ushopDN.Controllers
 {
